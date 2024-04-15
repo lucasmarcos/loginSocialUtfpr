@@ -9,28 +9,35 @@ const App = () => {
 	const [token, setToken] = useState();
 
 	const submit = async () => {
-		const a = await axios({
-			method: "POST",
-			url: "https://sistemas2.utfpr.edu.br/utfpr-auth/api/v1",
-			data: { username, password },
-		});
-
-		console.log(a);
-		setToken(a.data.token);
-
-		//		const response = await fetch( "https://sistemas2.utfpr.edu.br/utfpr-auth/api/v1",
-		//			{
-		//				method: "POST",
-		//				headers: {
-		//					"Content-Type": "application/json",
-		//				},
-		//        referrer: "about:client",
-		//        referrerPolicy: "unsafe-url",
-		//				body: `{ "username": "${username}", "password": "${password}" }`,
+		//		const a = await axios({
+		//			method: "POST",
+		//			url: "https://sistemas2.utfpr.edu.br/utfpr-auth/api/v1",
+		//			data: { username, password },
+		//			headers: {
+		//				Referer: "http://utfpr.edu.br",
+		//				"Referrer-Policy": "unsafe-url",
 		//			},
-		//		);
-		//		const json = await response.json();
-		//		setToken(json.token);
+		//		});
+		//
+		//		console.log(a);
+		//		setToken(a.data.token);
+
+		const request = new Request(
+			"https://sistemas2.utfpr.edu.br/utfpr-auth/api/v1",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				referrer: "http://sistemas2.utfpr.edu.br",
+				referrerPolicy: "unsafe-url",
+				body: `{ "username": "${username}", "password": "${password}" }`,
+			},
+		);
+		console.log(request);
+		const response = await fetch(request);
+		const json = await response.json();
+		setToken(json.token);
 	};
 
 	return (
