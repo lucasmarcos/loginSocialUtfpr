@@ -1,3 +1,4 @@
+import axios from "axios";
 import { decodeJwt } from "jose";
 import { useState } from "react";
 import { createRoot } from "react-dom/client";
@@ -8,19 +9,28 @@ const App = () => {
 	const [token, setToken] = useState();
 
 	const submit = async () => {
-		const response = await fetch(
-			"https://sistemas2.utfpr.edu.br/utfpr-auth/api/v1",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				referrer: "about:client",
-				body: `{ "username": "${username}", "password": "${password}" }`,
-			},
-		);
-		const json = await response.json();
-		setToken(json.token);
+		const a = await axios({
+			method: "POST",
+			url: "https://sistemas2.utfpr.edu.br/utfpr-auth/api/v1",
+			data: { username, password },
+		});
+
+		console.log(a);
+		setToken(a.data.token);
+
+		//		const response = await fetch( "https://sistemas2.utfpr.edu.br/utfpr-auth/api/v1",
+		//			{
+		//				method: "POST",
+		//				headers: {
+		//					"Content-Type": "application/json",
+		//				},
+		//        referrer: "about:client",
+		//        referrerPolicy: "unsafe-url",
+		//				body: `{ "username": "${username}", "password": "${password}" }`,
+		//			},
+		//		);
+		//		const json = await response.json();
+		//		setToken(json.token);
 	};
 
 	return (
