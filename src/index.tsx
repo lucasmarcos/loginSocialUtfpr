@@ -15,7 +15,7 @@ const App = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				referrer: "utfpr.edu.br",
+				referrer: "about:client",
 				body: `{ "username": "${username}", "password": "${password}" }`,
 			},
 		);
