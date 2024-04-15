@@ -1,6 +1,6 @@
+import { decodeJwt } from "jose";
 import { useState } from "react";
 import { createRoot } from "react-dom/client";
-import { decodeJwt } from "jose";
 
 const App = () => {
 	const [username, setUsername] = useState("");
@@ -15,6 +15,7 @@ const App = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
+				referrer: "utfpr.edu.br",
 				body: `{ "username": "${username}", "password": "${password}" }`,
 			},
 		);
